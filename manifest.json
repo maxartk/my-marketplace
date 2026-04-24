@@ -8,6 +8,12 @@
       "description": "Приклад плагіну",
       "version": "1.0.0",
       "author": "Max"
+    },
+    {
+      "name": "wikipedia-search",
+      "description": "Пошук у Вікіпедії через API",
+      "version": "1.0.0",
+      "author": "Max"
     }
   ]
 }

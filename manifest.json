@@ -1,0 +1,13 @@
+{
+  "name": "Tom Marketplace",
+  "version": "1.0.0",
+  "description": "Власний маркетплейс плагінів для OpenClaw",
+  "plugins": [
+    {
+      "name": "example-plugin",
+      "description": "Приклад плагіну",
+      "version": "1.0.0",
+      "author": "Max"
+    }
+  ]
+}

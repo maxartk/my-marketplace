@@ -8,21 +8,36 @@
       "description": "Приклад плагіну",
       "version": "1.0.0",
       "author": "Max",
-      "path": "plugins/example-plugin/SKILL.md"
+      "path": "plugins/example-plugin/SKILL.md",
+      "category": "template"
     },
     {
       "name": "wikipedia-search",
       "description": "Пошук у Вікіпедії через API",
       "version": "1.0.0",
       "author": "Max",
-      "path": "plugins/wikipedia-search/SKILL.md"
+      "path": "plugins/wikipedia-search/SKILL.md",
+      "category": "research",
+      "triggers": [
+        "вікіпедія",
+        "wikipedia",
+        "шукай у вікі"
+      ]
     },
     {
       "name": "trio-agents",
       "description": "Командна робота Claude + Hermes + OpenClaw",
       "version": "1.0.0",
       "author": "Max",
-      "path": "plugins/trio-agents/SKILL.md"
+      "path": "plugins/trio-agents/SKILL.md",
+      "category": "multi-agent",
+      "triggers": [
+        "claude",
+        "openclaw",
+        "hermes",
+        "trio",
+        "агенти"
+      ]
     }
   ]
 }

@@ -1,7 +1,7 @@
 ---
 name: reddit-monitor
 description: Моніторинг Reddit — відслідковує нові пости про OpenClaw та Hermes, надсилає дайджест у Telegram
-version: 1.0.0
+version: 1.1.0
 author: Max
 category: monitoring
 triggers: [reddit, що пишуть про openclaw, що пишуть про hermes, моніторинг reddit, новини openclaw, новини hermes]

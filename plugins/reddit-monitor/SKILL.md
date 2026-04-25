@@ -1,67 +1,65 @@
 ---
 name: reddit-monitor
-description: Моніторинг Reddit — відслідковує нові пости в особистих спільнотах, надсилає дайджест у Telegram
-version: 1.2.0
+description: Моніторинг Reddit через RSS — відслідковує нові пости в особистих спільнотах, надсилає дайджест у Telegram
+version: 1.3.0
 author: Max
 category: monitoring
 triggers: [reddit, що пишуть про openclaw, що пишуть про hermes, моніторинг reddit, новини openclaw, новини hermes, reddit дайджест]
 ---
 
-# Reddit Monitor — Особисті спільноти
+# Reddit Monitor — RSS (без блокування)
 
-Моніторинг нових постів у вибраних subreddits.
-Надсилає дайджест у Telegram двічі на день.
+Моніторинг нових постів через Reddit RSS фіди.
+Працює з будь-якого IP включаючи OCI ARM сервери.
 
 ## Конфігурація спільнот
 
-Список subreddits для моніторингу (редагуй цей розділ щоб додати нові):
-
 ```yaml
 subreddits:
-  - r/AIToolsPerformance
-  - r/AskClaw
-  - r/clawdbot
-  - r/hermesagent
-  - r/homeassistant
-  - r/n8nbusinessautomation
-  - r/openclaw
-  - r/openclawsetup
-  - r/PLC
+  - AIToolsPerformance
+  - AskClaw
+  - clawdbot
+  - hermesagent
+  - homeassistant
+  - n8nbusinessautomation
+  - openclaw
+  - openclawsetup
+  - PLC
 ```
 
 ### Як додати нову спільноту
-Просто скажи агенту:
-> "Додай r/назва до reddit-monitor"
+Скажи агенту: "Додай r/назва до reddit-monitor"
 
-Або відредагуй цей файл вручну і запуши в маркетплейс.
-
-## Пошук через DuckDuckGo
+## RSS запити
 
 ```bash
-# Функція пошуку постів в одному subreddit
-search_subreddit() {
+# Отримати нові пости з одного subreddit
+fetch_rss() {
   local sub=$1
-  local query=$2
-  curl -s -L -A "Mozilla/5.0" \
-    "https://html.duckduckgo.com/html/?q=site:reddit.com/r/${sub}+${query}" \
+  curl -s -A "Mozilla/5.0" \
+    "https://www.reddit.com/r/${sub}/new/.rss" \
     | python3 -c "
-import re, sys
+import sys, re
 from html import unescape
-html = sys.stdin.read()
-titles = re.findall(r'class=\"result__a\"[^>]*>(.*?)</a>', html, re.DOTALL)
-urls = re.findall(r'class=\"result__url\"[^>]*>(.*?)</a>', html, re.DOTALL)
-for t, u in zip(titles[:3], urls[:3]):
-    title = unescape(re.sub(r'<[^>]+>', '', t)).strip()[:80]
-    url = unescape(re.sub(r'<[^>]+>', '', u)).strip()
-    if 'reddit.com' in url:
-        print(f'{title}|{url}')
+xml = sys.stdin.read()
+items = re.findall(r'<entry>(.*?)</entry>', xml, re.DOTALL)
+for item in items[:3]:
+    title = re.search(r'<title[^>]*>(.*?)</title>', item, re.DOTALL)
+    link  = re.search(r'<link[^>]*href=\"([^\"]+)\"', item)
+    date  = re.search(r'<updated>(.*?)</updated>', item)
+    if title and link:
+        t = unescape(re.sub(r'<[^>]+>', '', title.group(1))).strip()[:80]
+        l = link.group(1)
+        d = date.group(1)[:10] if date else ''
+        print(f'{d}|{t}|{l}')
 "
 }
 
-# Пошук нових постів за добу в кожному subreddit
+# Перевірити всі subreddits
 for sub in AIToolsPerformance AskClaw clawdbot hermesagent homeassistant n8nbusinessautomation openclaw openclawsetup PLC; do
   echo "=== r/$sub ==="
-  search_subreddit "$sub" ""
+  fetch_rss "$sub"
+  sleep 1
 done
 ```
 
@@ -69,8 +67,8 @@ done
 
 ```
 @hermes   — запускає моніторинг за розкладом або на запит
-@openclaw — виконує curl запити через DuckDuckGo
-@claude   — аналізує результати, виділяє топ пости, складає дайджест
+@openclaw — виконує curl RSS запити, збирає пости
+@claude   — аналізує результати, складає дайджест
 @openclaw — надсилає дайджест у Telegram
 ```
 
@@ -81,7 +79,7 @@ done
 🕐 25 Apr 2026, 09:00
 
 🤖 r/openclaw (2 нових):
-• "OpenClaw v2.1 released — new skill system"
+• "OpenClaw v2.1 released"
   → reddit.com/r/openclaw/...
 • "How to set up marketplace?"
   → reddit.com/r/openclaw/...
@@ -90,25 +88,20 @@ done
 • "Hermes memory system deep dive"
   → reddit.com/r/hermesagent/...
 
-🏠 r/homeassistant (3 нових):
+🏠 r/homeassistant (1 новий):
 • "Zigbee mesh optimization tips"
   → reddit.com/r/homeassistant/...
 
-⚙️ r/n8nbusinessautomation (1 новий):
-• "n8n + Claude integration workflow"
-  → reddit.com/r/n8nbusinessautomation/...
-
-— r/AIToolsPerformance, r/AskClaw, r/clawdbot,
-  r/openclawsetup, r/PLC: нових постів немає
+— r/AskClaw, r/clawdbot, r/n8nbusinessautomation,
+  r/AIToolsPerformance, r/openclawsetup, r/PLC: нових постів немає
 ```
 
 ## Розклад
 
 ```bash
-# Двічі на день — 9:00 та 21:00
 cronjob create \
   --schedule "0 9,21 * * *" \
-  --prompt "Виконай reddit-monitor скіл. Перевір всі subreddits з конфігу. Знайди нові пости за останні 12г через DuckDuckGo. Склади дайджест і відправ у Telegram тільки якщо є хоча б 1 новий пост."
+  --prompt "Виконай reddit-monitor скіл. Отримай RSS фіди всіх subreddits з конфігу. Знайди пости за останні 12г. Склади дайджест і відправ у Telegram тільки якщо є хоча б 1 новий пост."
 ```
 
 ## Telegram сповіщення

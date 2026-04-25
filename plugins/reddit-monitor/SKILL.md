@@ -1,7 +1,7 @@
 ---
 name: reddit-monitor
 description: Моніторинг Reddit — відслідковує нові пости в особистих спільнотах, надсилає дайджест у Telegram
-version: 1.5.0
+version: 1.7.0
 author: Max
 category: monitoring
 triggers: [reddit, що пишуть про openclaw, що пишуть про hermes, моніторинг reddit, новини openclaw, новини hermes, reddit дайджест]
@@ -59,6 +59,84 @@ search_reddit "site:reddit.com/r/hermesagent new posts"
 search_reddit "site:reddit.com/r/homeassistant new posts"
 ```
 
+## Читання вмісту топ-постів
+
+Після збору всіх постів, вибери **топ-3 найцікавіших** (за свіжістю + релевантністю темі) і прочитай їх вміст:
+
+### Метод 1: DuckDuckGo search (працює стабільно)
+
+```bash
+# Шукаємо вміст посту через DuckDuckGo
+read_post_ddg() {
+  local title=$1
+  local sub=$2
+  # Формуємо пошуковий запит з назви посту
+  local query=$(echo "$title" | python3 -c "
+import sys, urllib.parse
+text = sys.stdin.read().strip()
+print(urllib.parse.quote(text[:100]))
+")
+  curl -s -L -A "Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36" \
+    "https://html.duckduckgo.com/html/?q=site:reddit.com/r/${sub}+${query}" \
+    | python3 -c "
+import re, sys
+from html import unescape
+html = sys.stdin.read()
+# Шукаємо снипети з описом посту
+snippets = re.findall(r'class=\"result__snippet\"[^>]*>(.*?)</a>', html, re.DOTALL)
+if snippets:
+    snippet = unescape(re.sub(r'<[^>]+>', '', snippets[0])).strip()
+    print(f'SUMMARY: {snippet[:300]}')
+else:
+    print('SUMMARY: Немає опису')
+" 2>/dev/null
+}
+
+# Приклад використання
+read_post_ddg "Python reimplementation of Claude Code" "openclaw"
+read_post_ddg "Hermes Agent TUI Weird Text" "hermesagent"
+read_post_ddg "Multi-purpose PoE room bluetooth speaker" "homeassistant"
+```
+
+### Метод 2: old.reddit.com JSON (якщо працює)
+
+```bash
+# Функція читання Reddit посту (через old.reddit.com JSON)
+read_post() {
+  local url=$1
+  # Перетворити www.reddit.com → old.reddit.com для JSON
+  local json_url=$(echo "$url" | sed 's|www.reddit.com|old.reddit.com|; s|$|/.json|')
+  curl -s -L -A "Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36" \
+    "$json_url" \
+    | python3 -c "
+import json, sys, re
+from html import unescape
+data = json.load(sys.stdin)
+post = data[0]['data']['children'][0]['data']
+title = post.get('title', '')
+selftext = post.get('selftext', '')
+# Clean markdown/HTML
+selftext = re.sub(r'\[([^\]]+)\]\([^\)]+\)', r'\1', selftext)
+selftext = re.sub(r'[#*>_`~]', '', selftext)
+selftext = selftext.strip()[:500]
+print(f'TITLE: {title}')
+print(f'BODY: {selftext}')
+" 2>/dev/null || echo "ERROR: old.reddit.com blocked"
+}
+
+# Приклад: прочитати топ-3 пости
+read_post "https://www.reddit.com/r/openclaw/comments/1sv68sz/..."
+read_post "https://www.reddit.com/r/hermesagent/comments/1sv5xxf/..."
+read_post "https://www.reddit.com/r/homeassistant/comments/1sv6rz3/..."
+```
+
+### Правила вибору топ-3:
+1. **Пріоритет тем:** openclaw/hermes > homeassistant > n8n > PLC > інші
+2. **Свіжість:** останні 6 годин пріоритетніші
+3. **Різноманітність:** не більше 1 поста з одного subreddit
+4. Якщо постів менше 3 — читай скільки є
+5. **Якщо old.reddit.com blocked** — використовуй DuckDuckGo search (Метод 1)
+
 ## Маршрутизація між агентами
 
 ```
@@ -77,12 +155,15 @@ search_reddit "site:reddit.com/r/homeassistant new posts"
 🤖 r/openclaw (2 нових):
 • "OpenClaw v2.1 released"
   → reddit.com/r/openclaw/...
+  💡 Summary: OpenClaw v2.1 introduces new skill system with marketplace support...
+
 • "How to set up marketplace?"
   → reddit.com/r/openclaw/...
 
 🧠 r/hermesagent (1 новий):
 • "Hermes memory system deep dive"
   → reddit.com/r/hermesagent/...
+  💡 Summary: Detailed analysis of Hermes memory architecture with optimization tips...
 
 🏠 r/homeassistant (1 новий):
 • "Zigbee mesh optimization tips"
@@ -91,6 +172,9 @@ search_reddit "site:reddit.com/r/homeassistant new posts"
 — r/AskClaw, r/clawdbot, r/n8nbusinessautomation,
   r/AIToolsPerformance, r/openclawsetup, r/PLC: нових постів немає
 ```
+
+### Додати summary до топ-3 постів
+Після збору постів, вибери топ-3 найцікавіших і додай `💡 Summary:` під кожним посиланням. Summary має бути 1-2 речення, написаний своїми словами на основі вмісту посту.
 
 ## Розклад
 
@@ -162,6 +246,8 @@ cat ~/.hermes/cron/output/<job_id>/<date>.md
 **Рішення:** Спробувати інший User-Agent або додати затримку між запитами (`sleep 1`).
 
 ## Історія версій
+- **v1.7.0** — додано DuckDuckGo search як fallback для читання вмісту постів (old.reddit.com blocked)
+- **v1.6.0** — додано читання вмісту топ-3 постів через old.reddit.com JSON + 💡 Summary в дайджесті
 - **v1.5.0** — switch to curl/DuckDuckGo via terminal toolset (fixes cronjob web_search issue)
 - **v1.4.0** — switch to web_search (не працює в cronjob)
 - **v1.3.0** — switch to RSS feeds (не працює з хмарних IP)

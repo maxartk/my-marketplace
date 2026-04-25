@@ -52,6 +52,20 @@
         "сервер впав",
         "signal_bridge"
       ]
+    },
+    {
+      "name": "reddit-monitor",
+      "description": "Моніторинг Reddit — нові пости про OpenClaw та Hermes, дайджест у Telegram",
+      "version": "1.0.0",
+      "author": "Max",
+      "category": "monitoring",
+      "path": "plugins/reddit-monitor/SKILL.md",
+      "triggers": [
+        "reddit",
+        "openclaw новини",
+        "hermes новини",
+        "моніторинг reddit"
+      ]
     }
   ]
 }

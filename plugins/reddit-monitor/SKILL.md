@@ -1,127 +1,114 @@
 ---
 name: reddit-monitor
-description: Моніторинг Reddit — відслідковує нові пости про OpenClaw та Hermes, надсилає дайджест у Telegram
-version: 1.1.0
+description: Моніторинг Reddit — відслідковує нові пости в особистих спільнотах, надсилає дайджест у Telegram
+version: 1.2.0
 author: Max
 category: monitoring
-triggers: [reddit, що пишуть про openclaw, що пишуть про hermes, моніторинг reddit, новини openclaw, новини hermes]
+triggers: [reddit, що пишуть про openclaw, що пишуть про hermes, моніторинг reddit, новини openclaw, новини hermes, reddit дайджест]
 ---
 
-# Reddit Monitor — OpenClaw & Hermes
+# Reddit Monitor — Особисті спільноти
 
-Відслідковує нові пости та обговорення про OpenClaw і Hermes на Reddit.
-Надсилає дайджест у Telegram коли є щось цікаве.
+Моніторинг нових постів у вибраних subreddits.
+Надсилає дайджест у Telegram двічі на день.
 
-## Що моніторити
+## Конфігурація спільнот
 
-### Subreddits
-```
-r/MachineLearning
-r/artificial
-r/AIAssistants
-r/LocalLLaMA
-r/ChatGPTPromptEngineering
-r/ClaudeAI
-r/singularity
-```
+Список subreddits для моніторингу (редагуй цей розділ щоб додати нові):
 
-### Пошукові запити
-```
-"OpenClaw" site:reddit.com
-"Hermes agent" site:reddit.com
-"openclaw agent"
-"hermes AI agent"
+```yaml
+subreddits:
+  - r/AIToolsPerformance
+  - r/AskClaw
+  - r/clawdbot
+  - r/hermesagent
+  - r/homeassistant
+  - r/n8nbusinessautomation
+  - r/openclaw
+  - r/openclawsetup
+  - r/PLC
 ```
 
-## API запити
+### Як додати нову спільноту
+Просто скажи агенту:
+> "Додай r/назва до reddit-monitor"
 
-### Пошук постів через DuckDuckGo HTML (працює без токена, стабільно)
+Або відредагуй цей файл вручну і запуши в маркетплейс.
+
+## Пошук через DuckDuckGo
+
 ```bash
-# Пошук Reddit постів через DuckDuckGo
-curl -s -L -A "Mozilla/5.0" \
-  "https://html.duckduckgo.com/html/?q=site:reddit.com+OpenClaw+agent" \
-  | python3 -c "
+# Функція пошуку постів в одному subreddit
+search_subreddit() {
+  local sub=$1
+  local query=$2
+  curl -s -L -A "Mozilla/5.0" \
+    "https://html.duckduckgo.com/html/?q=site:reddit.com/r/${sub}+${query}" \
+    | python3 -c "
 import re, sys
 from html import unescape
 html = sys.stdin.read()
 titles = re.findall(r'class=\"result__a\"[^>]*>(.*?)</a>', html, re.DOTALL)
 urls = re.findall(r'class=\"result__url\"[^>]*>(.*?)</a>', html, re.DOTALL)
-for i, (t, u) in enumerate(zip(titles, urls)):
-    print(f\"{i+1}. {unescape(re.sub(r'<[^>]+>', '', t))[:80]}\")
-    print(f\"   {unescape(re.sub(r'<[^>]+>', '', u))[:100]}\")
+for t, u in zip(titles[:3], urls[:3]):
+    title = unescape(re.sub(r'<[^>]+>', '', t)).strip()[:80]
+    url = unescape(re.sub(r'<[^>]+>', '', u)).strip()
+    if 'reddit.com' in url:
+        print(f'{title}|{url}')
 "
-```
+}
 
-### Моніторинг конкретного subreddit (якщо працює API)
-```bash
-curl -s -A "reddit-monitor-bot/1.0" \
-  "https://www.reddit.com/r/LocalLLaMA/search.json?q=OpenClaw&sort=new&restrict_sr=1&limit=5" \
-  | python3 -c "
-import json, sys
-data = json.load(sys.stdin)
-posts = data['data']['children']
-if not posts:
-    print('No new posts')
-else:
-    for post in posts:
-        p = post['data']
-        print(f\"{p['title']} | {p['score']} pts | reddit.com{p['permalink']}\")
-"
+# Пошук нових постів за добу в кожному subreddit
+for sub in AIToolsPerformance AskClaw clawdbot hermesagent homeassistant n8nbusinessautomation openclaw openclawsetup PLC; do
+  echo "=== r/$sub ==="
+  search_subreddit "$sub" ""
+done
 ```
 
 ## Маршрутизація між агентами
 
 ```
 @hermes   — запускає моніторинг за розкладом або на запит
-@openclaw — виконує curl запити до Reddit API
-@claude   — аналізує пости, виділяє найцікавіше, складає дайджест
+@openclaw — виконує curl запити через DuckDuckGo
+@claude   — аналізує результати, виділяє топ пости, складає дайджест
 @openclaw — надсилає дайджест у Telegram
 ```
 
 ## Формат Telegram дайджесту
 
-### Є нові пости:
 ```
-📡 Reddit Monitor — OpenClaw & Hermes
+📡 Reddit Дайджест
 🕐 25 Apr 2026, 09:00
 
-🔴 OpenClaw (3 нових пости):
+🤖 r/openclaw (2 нових):
+• "OpenClaw v2.1 released — new skill system"
+  → reddit.com/r/openclaw/...
+• "How to set up marketplace?"
+  → reddit.com/r/openclaw/...
 
-1. "OpenClaw vs Claude Code — which is better?"
-   r/LocalLLaMA | ⬆️ 142 | 47 коментарів
-   → reddit.com/r/LocalLLaMA/...
+🧠 r/hermesagent (1 новий):
+• "Hermes memory system deep dive"
+  → reddit.com/r/hermesagent/...
 
-2. "Anyone using OpenClaw for automation?"
-   r/artificial | ⬆️ 38 | 12 коментарів
-   → reddit.com/r/artificial/...
+🏠 r/homeassistant (3 нових):
+• "Zigbee mesh optimization tips"
+  → reddit.com/r/homeassistant/...
 
-🟡 Hermes (1 новий пост):
+⚙️ r/n8nbusinessautomation (1 новий):
+• "n8n + Claude integration workflow"
+  → reddit.com/r/n8nbusinessautomation/...
 
-1. "Hermes agent memory system is impressive"
-   r/MachineLearning | ⬆️ 89 | 23 коментарі
-   → reddit.com/r/MachineLearning/...
-
-💡 Висновок (Claude): Основна тема — порівняння з Claude Code...
-```
-
-### Немає нічого нового:
-```
-📡 Reddit Monitor
-Нових постів за останні 24г не знайдено.
+— r/AIToolsPerformance, r/AskClaw, r/clawdbot,
+  r/openclawsetup, r/PLC: нових постів немає
 ```
 
 ## Розклад
 
 ```bash
-# Щоденний дайджест о 9:00
+# Двічі на день — 9:00 та 21:00
 cronjob create \
-  --schedule "0 9 * * *" \
-  --prompt "Виконай reddit-monitor скіл. Використовуй DuckDuckGo для пошуку 'site:reddit.com OpenClaw' та 'site:reddit.com Hermes'. Знайди нові пости за останні 24г, відправ дайджест у Telegram"
-
-# Або кожні 6 годин якщо хочеш частіше
-cronjob create \
-  --schedule "0 */6 * * *" \
-  --prompt "Виконай reddit-monitor скіл. DuckDuckGo 'site:reddit.com OpenClaw OR Hermes'. Відправ дайджест тільки якщо є нові пости"
+  --schedule "0 9,21 * * *" \
+  --prompt "Виконай reddit-monitor скіл. Перевір всі subreddits з конфігу. Знайди нові пости за останні 12г через DuckDuckGo. Склади дайджест і відправ у Telegram тільки якщо є хоча б 1 новий пост."
 ```
 
 ## Telegram сповіщення
@@ -134,7 +121,7 @@ curl -s -X POST "https://api.telegram.org/bot<TOKEN>/sendMessage" \
   -d text="<повідомлення>"
 ```
 
-## Встановлення
+## Встановлення / оновлення
 
 ```bash
 cp -r /tmp/marketplace/plugins/reddit-monitor ~/.openclaw/skills/

@@ -38,6 +38,20 @@
         "trio",
         "агенти"
       ]
+    },
+    {
+      "name": "oci-status",
+      "description": "Моніторинг OCI ARM сервера — статус, сервіси, логи, Telegram звіт",
+      "version": "1.0.0",
+      "author": "Max",
+      "category": "devops",
+      "path": "plugins/oci-status/SKILL.md",
+      "triggers": [
+        "oci",
+        "oracle cloud",
+        "сервер впав",
+        "signal_bridge"
+      ]
     }
   ]
 }

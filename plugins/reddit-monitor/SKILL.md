@@ -1,7 +1,7 @@
 ---
 name: reddit-monitor
 description: Моніторинг Reddit — відслідковує нові пости в особистих спільнотах, надсилає дайджест у Telegram
-version: 1.7.0
+version: 1.8.0
 author: Max
 category: monitoring
 triggers: [reddit, що пишуть про openclaw, що пишуть про hermes, моніторинг reddit, новини openclaw, новини hermes, reddit дайджест]
@@ -141,8 +141,8 @@ read_post "https://www.reddit.com/r/homeassistant/comments/1sv6rz3/..."
 
 ```
 @hermes   — запускає моніторинг за розкладом або на запит
-@hermes   — виконує curl запити через DuckDuckGo, збирає пости
-@hermes   — аналізує результати, складає дайджест
+@openclaw — виконує curl запити через DuckDuckGo, збирає пости
+@claude   — аналізує результати, складає summary для топ-3 постів
 @hermes   — надсилає дайджест у Telegram
 ```
 
@@ -246,6 +246,7 @@ cat ~/.hermes/cron/output/<job_id>/<date>.md
 **Рішення:** Спробувати інший User-Agent або додати затримку між запитами (`sleep 1`).
 
 ## Історія версій
+- **v1.8.0** — виправлено маршрутизацію: @hermes запускає/надсилає, @openclaw збирає пости, @claude аналізує
 - **v1.7.0** — додано DuckDuckGo search як fallback для читання вмісту постів (old.reddit.com blocked)
 - **v1.6.0** — додано читання вмісту топ-3 постів через old.reddit.com JSON + 💡 Summary в дайджесті
 - **v1.5.0** — switch to curl/DuckDuckGo via terminal toolset (fixes cronjob web_search issue)

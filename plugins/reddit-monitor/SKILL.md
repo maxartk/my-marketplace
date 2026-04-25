@@ -1,15 +1,15 @@
 ---
 name: reddit-monitor
 description: Моніторинг Reddit — відслідковує нові пости в особистих спільнотах, надсилає дайджест у Telegram
-version: 1.4.0
+version: 1.5.0
 author: Max
 category: monitoring
 triggers: [reddit, що пишуть про openclaw, що пишуть про hermes, моніторинг reddit, новини openclaw, новини hermes, reddit дайджест]
 ---
 
-# Reddit Monitor — web_search (без блокування)
+# Reddit Monitor — terminal (без блокування)
 
-Моніторинг нових постів через вбудований web_search інструмент Hermes.
+Моніторинг нових постів через curl запити.
 Працює з будь-якого IP, не потребує API ключів.
 
 ## Конфігурація спільнот
@@ -30,20 +30,40 @@ subreddits:
 ### Як додати нову спільноту
 Скажи агенту: "Додай r/назва до reddit-monitor"
 
-## Пошук через web_search
+## Пошук через DuckDuckGo HTML
 
 ```bash
-# Використовуй web_search для пошуку Reddit постів
-web_search("site:reddit.com/r/openclaw new posts", limit=5)
-web_search("site:reddit.com/r/hermesagent new posts", limit=5)
-web_search("site:reddit.com/r/homeassistant new posts", limit=5)
+# Функція пошуку постів через DuckDuckGo
+search_reddit() {
+  local query=$1
+  curl -s -L -A "Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36" \
+    "https://html.duckduckgo.com/html/?q=${query}" \
+    | python3 -c "
+import re, sys
+from html import unescape
+html = sys.stdin.read()
+titles = re.findall(r'class=\"result__a\"[^>]*>(.*?)</a>', html, re.DOTALL)
+urls = re.findall(r'class=\"result__url\"[^>]*>(.*?)</a>', html, re.DOTALL)
+for i, (t, u) in enumerate(zip(titles[:5], urls[:5])):
+    title = unescape(re.sub(r'<[^>]+>', '', t)).strip()[:80]
+    url = unescape(re.sub(r'<[^>]+>', '', u)).strip()
+    print(f'{i+1}. {title}')
+    print(f'   {url}')
+    print()
+"
+}
+
+# Приклад використання
+search_reddit "site:reddit.com/r/openclaw new posts"
+search_reddit "site:reddit.com/r/hermesagent new posts"
+search_reddit "site:reddit.com/r/homeassistant new posts"
 ```
 
 ## Маршрутизація між агентами
 
 ```
 @hermes   — запускає моніторинг за розкладом або на запит
-@hermes   — виконує web_search запити, збирає пости
+@hermes   — виконує curl запити через DuckDuckGo, збирає пости
 @hermes   — аналізує результати, складає дайджест
 @hermes   — надсилає дайджест у Telegram
 ```
@@ -77,7 +97,7 @@ web_search("site:reddit.com/r/homeassistant new posts", limit=5)
 ```bash
 cronjob create \
   --schedule "0 9,21 * * *" \
-  --prompt "Виконай reddit-monitor скіл. Використовуй web_search для пошуку нових постів в усіх subreddits з конфігу. Знайди пости за останні 12г. Склади дайджест і відправ у Telegram тільки якщо є хоча б 1 новий пост."
+  --prompt "Виконай reddit-monitor скіл. Використовуй curl для пошуку нових постів в усіх subreddits з конфігу через DuckDuckGo. Знайди пости за останні 12г. Склади дайджест і відправ у Telegram тільки якщо є хоча б 1 новий пост."
 ```
 
 ## Telegram сповіщення

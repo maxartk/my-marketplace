@@ -116,3 +116,55 @@ curl -s -X POST "https://api.telegram.org/bot<TOKEN>/sendMessage" \
 cp -r /tmp/marketplace/plugins/reddit-monitor ~/.openclaw/skills/
 cp -r /tmp/marketplace/plugins/reddit-monitor ~/.hermes/skills/
 ```
+
+## Cronjob налаштування
+
+### КРИТИЧНО: toolsets для cronjob
+Cronjob **не має доступу до web_search** навіть якщо він увімкнений для основного агента.
+Потрібно явно вказати `enabled_toolsets`:
+
+```bash
+cronjob create \
+  --schedule "0 9,21 * * *" \
+  --enabled_toolsets "terminal,messaging" \
+  --skills "reddit-monitor" \
+  --prompt "Виконай reddit-monitor скіл. Використовуй curl для пошуку нових постів в усіх subreddits з конфігу через DuckDuckGo. Знайди пости за останні 12г. Склади дайджест і відправ у Telegram тільки якщо є хоча б 1 новий пост."
+```
+
+### Перевірка роботи
+```bash
+# Запуск тесту вручну
+cronjob run --job_id <job_id>
+
+# Перевірка результатів
+ls -la ~/.hermes/cron/output/<job_id>/
+cat ~/.hermes/cron/output/<job_id>/<date>.md
+```
+
+## Troubleshooting
+
+### Чому не працюють інші методи
+
+| Метод | Статус | Причина |
+|-------|--------|---------|
+| Reddit JSON API | ❌ 403 | Блокує хмарні IP (OCI ARM, AWS, GCP) |
+| old.reddit.com RSS | ❌ 403 | Блокує хмарні IP |
+| DuckDuckGo HTML | ✅ Працює | Не блокує автоматизовані запити |
+| Google Search | ❌ Timeout | Блокує хмарні IP |
+| web_search (Hermes) | ❌ Недоступний | Не працює в cronjob контексті |
+
+### Помилка: "I don't have access to a web_search tool"
+**Причина:** Cronjob запускається в ізольованому контексті без доступу до web_search.
+**Рішення:** Додати `--enabled_toolsets "terminal,messaging"` при створенні cronjob.
+
+### Помилка: "0 results" від DuckDuckGo
+**Причина:** Занадто специфічний запит або DuckDuckGo тимчасово блокує IP.
+**Рішення:** Спробувати інший User-Agent або додати затримку між запитами (`sleep 1`).
+
+## Історія версій
+- **v1.5.0** — switch to curl/DuckDuckGo via terminal toolset (fixes cronjob web_search issue)
+- **v1.4.0** — switch to web_search (не працює в cronjob)
+- **v1.3.0** — switch to RSS feeds (не працює з хмарних IP)
+- **v1.2.0** — personal subreddits list
+- **v1.1.0** — switch to web_search
+- **v1.0.0** — initial version with Reddit JSON API

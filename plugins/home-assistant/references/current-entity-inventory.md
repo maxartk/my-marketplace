@@ -1,0 +1,303 @@
+# Current Home Assistant Entity Inventory
+
+Generated from live HA audit. Use as a starting point; `references/entity-map.md` remains the canonical alias file for ambiguous names.
+
+## Ванна
+- `automation.avtomatizatsiia_vikl_svitlo_vanna` — `unavailable` — Ванна - Вимкнення світла 
+- `automation.vanna_svitlo_po_rukhu` — `unavailable` — Ванна – Світло по руху
+- `automation.vanna_uvimknennia_svitla` — `unavailable` — Ванна - Увімкнення світла
+- `automation.vanna_uvimknennia_svitla_2` — `on` — Ванна - Увімкнення світла
+- `automation.vanna_vimknennia_svitla` — `on` — Ванна - Вимкнення світла
+- `automation.zatoplennia_vanna_gariacha_voda` — `on` — Ванна - Затоплення (вимкнення гарячої води)
+- `binary_sensor.datchik_rukhu_vanna_occupancy` — `off` — датчик руху ванна
+- `binary_sensor.datchik_zatoplennia_vanna_battery_low` — `off` — датчик затоплення ванна Акумулятор
+- `binary_sensor.datchik_zatoplennia_vanna_water_leak` — `off` — датчик затоплення ванна Вологість
+- `button.vanna1_identifikuvati` — `unavailable` — Лампа ванна 1 Ідентифікувати
+- `button.vanna1_identifikuvati_2` — `unknown` — Лампа ванна 1 Ідентифікувати
+- `light.svitlo_vanna` — `off` — світло ванна
+- `light.vanna1_2` — `off` — Лампа ванна 1
+- `number.vanna1_on_level` — `unavailable` — Лампа ванна 1 On level
+- `number.vanna1_on_level_2` — `255` — Лампа ванна 1 On level
+- `select.vanna1_power_on_behavior_on_startup` — `unavailable` — Лампа ванна 1 Power-on behavior
+- `select.vanna1_power_on_behavior_on_startup_2` — `previous` — Лампа ванна 1 Power-on behavior
+- `sensor.datchik_rukhu_vanna_battery` — `100` — датчик руху ванна Батарея
+- `sensor.datchik_rukhu_vanna_device_temperature` — `29` — датчик руху ванна Температура
+- `sensor.datchik_rukhu_vanna_illuminance` — `76` — датчик руху ванна Освітленість
+- `sensor.datchik_rukhu_vanna_voltage` — `3005` — датчик руху ванна Напруга
+- `sensor.datchik_vologosti_tuja_battery` — `48` — датчик вологості tuja Батарея
+- `sensor.datchik_vologosti_tuja_humidity` — `64.22` — датчик вологості tuja Вологість
+- `sensor.datchik_vologosti_tuja_temperature` — `24.31` — датчик вологості tuja Температура
+- `sensor.datchik_vologosti_tuja_voltage` — `2700` — датчик вологості tuja Напруга
+- `sensor.datchik_zatoplennia_vanna_battery` — `97` — датчик затоплення ванна Батарея
+- `sensor.datchik_zatoplennia_vanna_device_temperature` — `29` — датчик затоплення ванна Температура
+- `sensor.datchik_zatoplennia_vanna_voltage` — `2995` — датчик затоплення ванна Напруга
+- `update.datchik_vologosti_tuja` — `off` — датчик вологості tuja
+- `update.vanna1_firmware` — `unavailable` — Лампа ванна 1 Firmware
+- `update.vanna1_firmware_2` — `unknown` — Лампа ванна 1 Firmware
+
+## Спальня
+- `automation.keruvannia_termogolovkoiu_spalnia_cherez_triger` — `unavailable` — Керування Термоголовкою Спальня через Тригер
+- `automation.knopka_spalnia_rozumne_keruvannia` — `on` — Кнопка спальня – Розумне керування
+- `automation.spalnia_keruvannia_termogolovkoiu_cherez_triger` — `unavailable` — Спальня - Керування термоголовкою
+- `automation.spalnia_sinkhronizatsiia_rezhimu_osvitlennia` — `off` — Спальня - Синхронізація режиму освітлення
+- `automation.vikl_batareiu_spalnia` — `on` — Спальня - Вікно відкрито
+- `binary_sensor.datchik_rukhu_spalnia_occupancy` — `off` — датчик руху спальня
+- `binary_sensor.datchik_vikna_spalnia_battery_low` — `off` — датчик вікна спальня Акумулятор
+- `binary_sensor.datchik_vikna_spalnia_contact` — `on` — датчик вікна спальня Двері
+- `binary_sensor.datchik_vikna_spalnia_tamper` — `off` — датчик вікна спальня Втручання
+- `binary_sensor.termogolovka_spalnia_calibrated` — `on` — термоголовка спальня Calibrated
+- `binary_sensor.termogolovka_spalnia_setup` — `off` — термоголовка спальня Виконання
+- `binary_sensor.termogolovka_spalnia_valve_alarm` — `on` — термоголовка спальня Проблема
+- `binary_sensor.termogolovka_spalnia_window_open` — `off` — термоголовка спальня Вікно
+- `button.termogolovka_spalnia_calibrate` — `unknown` — термоголовка спальня Calibrate
+- `climate.termogolovka_spalnia` — `off` — термоголовка спальня
+- `climate.termogolovka_spalnia_z_datchikom` — `off` — Термоголовка спальня з датчиком
+- `input_boolean.triger_obigrivu_spalni` — `off` — Trigger обігріву спальні
+- `input_select.rezhim_osvitlennia_spalni` — `Романтичне` — Режим освітлення спальні
+- `light.lampa_spalnia_2` — `unavailable` — лампа спальня_2
+- `light.spalnia_svitlo` — `unavailable` — спальня світло
+- `media_player.spalnia_3` — `off` — Спальня 3
+- `media_player.televizor_u_spalni` — `unavailable` — 
+- `number.termogolovka_spalnia_away_preset_temperature` — `5.0` — термоголовка спальня Away preset temperature
+- `number.termogolovka_spalnia_external_temperature_input` — `unknown` — термоголовка спальня Температура
+- `scene.spalnia_maksimum` — `2026-02-25T14:01:46.067953+00:00` — Спальня – Максимум
+- `scene.spalnia_nich` — `2026-04-06T14:49:28.499559+00:00` — Спальня – Ніч
+- `scene.spalnia_romantichne` — `2026-03-02T20:29:50.678920+00:00` — Спальня - Романтичне
+- `scene.spalnia_romantika` — `2026-03-02T20:30:15.096560+00:00` — Спальня – Романтика
+- `scene.spalnia_vechir` — `2026-06-02T18:30:33.259138+00:00` — Спальня – Вечір
+- `select.lampa_spalnia_2_color_power_on_behavior` — `unavailable` — лампа спальня_2 Color power on behavior
+- `select.lampa_spalnia_2_power_on_behavior` — `unavailable` — лампа спальня_2 Power-on behavior
+- `select.rele_spalnja_switch_type` — `unknown` — Rele_Spalnja Switch type
+- `select.termogolovka_spalnia_sensor` — `internal` — термоголовка спальня Sensor
+- `sensor.datchik_rukhu_spalnia_battery` — `100` — датчик руху спальня Батарея
+- `sensor.datchik_rukhu_spalnia_device_temperature` — `29` — датчик руху спальня Температура
+- `sensor.datchik_rukhu_spalnia_illuminance` — `145` — датчик руху спальня Освітленість
+- `sensor.datchik_rukhu_spalnia_voltage` — `3035` — датчик руху спальня Напруга
+- `sensor.datchik_temperaturi_spalnia_battery` — `83` — Датчик температури Спальня Батарея
+- `sensor.datchik_temperaturi_spalnia_humidity` — `52.43` — Датчик температури Спальня Вологість
+- `sensor.datchik_temperaturi_spalnia_pressure` — `951.5` — Датчик температури Спальня Атмосферний тиск
+- `sensor.datchik_temperaturi_spalnia_temperature` — `22.42` — Датчик температури Спальня Температура
+- `sensor.datchik_temperaturi_spalnia_voltage` — `2975` — Датчик температури Спальня Напруга
+- `sensor.datchik_vikna_spalnia_battery` — `87` — датчик вікна спальня Батарея
+- `sensor.datchik_vikna_spalnia_voltage` — `2500` — датчик вікна спальня Напруга
+- `sensor.rele_spalnja_current` — `0.14` — Rele_Spalnja Струм
+- `sensor.rele_spalnja_device_temperature` — `25` — Rele_Spalnja Температура
+- `sensor.rele_spalnja_energy` — `8.09` — Rele_Spalnja Енергія
+- `sensor.rele_spalnja_power` — `18.64` — Rele_Spalnja Живлення
+- `sensor.rele_spalnja_voltage` — `238.89` — Rele_Spalnja Напруга
+- `sensor.termogolovka_spalnia_battery` — `91` — термоголовка спальня Батарея
+- `sensor.termogolovka_spalnia_device_temperature` — `22` — термоголовка спальня Температура
+- `sensor.termogolovka_spalnia_local_temperature` — `20.4` — термоголовка спальня Температура
+- `sensor.termogolovka_spalnia_voltage` — `3000` — термоголовка спальня Напруга
+- `switch.lampa_spalnia_2_do_not_disturb` — `unavailable` — лампа спальня_2 Do not disturb
+- `switch.rele_spalnja` — `on` — Rele_Spalnja
+- `switch.rele_spalnja_power_outage_memory` — `off` — Rele_Spalnja Power outage memory
+- `switch.termogolovka_spalnia_child_lock` — `off` — термоголовка спальня Child lock
+- `switch.termogolovka_spalnia_schedule` — `off` — термоголовка спальня Schedule
+- `switch.termogolovka_spalnia_valve_detection` — `on` — термоголовка спальня Valve detection
+- `switch.termogolovka_spalnia_window_detection` — `on` — термоголовка спальня Window detection
+- `text.termogolovka_spalnia_schedule_settings` — `mon,tue,wed,thu,fri|8:00,18.0|14:20,21.5|20:39,18.0|8:00,18.0` — термоголовка спальня Schedule settings
+- `update.rele_spalnja` — `off` — Rele_Spalnja
+- `update.termogolovka_spalnia` — `off` — термоголовка спальня
+
+## Кухня
+- `automation.kukhnia_keruvannia_termogolovkoiu` — `on` — Кухня - Керування термоголовкою
+- `automation.kukhnia_pidvishchennia_do_23degc_04_20` — `unavailable` — Кухня - Підвищення до 23°C (04:20)
+- `automation.kukhnia_povernennia_do_16degc_04_50` — `unavailable` — Кухня - Повернення до 16°C (04:50)
+- `automation.kukhnia_rankova_kava_end_04_50_pn_pt` — `off` — Кухня - Ранкова кава END (04:50, Пн-Пт)
+- `automation.kukhnia_rankova_kava_start_04_20_pn_pt` — `off` — Кухня - Ранкова кава START (04:20, Пн-Пт)
+- `automation.kukhnia_strakhovka_16degc_05_00` — `unavailable` — Кухня - Страховка 16°C (05:00)
+- `automation.kukhnia_vimknuti_svitlo_pislia_15_khv_bez_rukhu` — `on` — Кухня: вимкнути світло після 15 хв без руху
+- `automation.kukhnia_vvimknuti_svitlo_pri_rusi` — `on` — Кухня: ввімкнути світло при русі
+- `binary_sensor.termogolovka_kukhnia_calibrated` — `unavailable` — термоголовка кухня Calibrated
+- `binary_sensor.termogolovka_kukhnia_setup` — `unavailable` — термоголовка кухня Виконання
+- `binary_sensor.termogolovka_kukhnia_valve_alarm` — `unavailable` — термоголовка кухня Проблема
+- `binary_sensor.termogolovka_kukhnia_window_open` — `unavailable` — термоголовка кухня Вікно
+- `button.termogolovka_kukhnia_calibrate` — `unavailable` — термоголовка кухня Calibrate
+- `climate.termogolovka_kukhnia` — `unavailable` — термоголовка кухня
+- `climate.termostat_kukhnia_rozumnii` — `off` — Термостат кухня розумний
+- `input_boolean.triger_obigrivu_kukhni` — `off` — Trigger обігріву кухні
+- `light.kukhnia` — `unavailable` — кухня_1
+- `light.kukhnia_2` — `unavailable` — кухня_2
+- `light.kukhnia_3` — `unavailable` — кухня_3
+- `light.kukhnia_4` — `unavailable` — кухня_4
+- `light.svitlo_kukhnia` — `unavailable` — світло кухня
+- `number.termogolovka_kukhnia_away_preset_temperature` — `unavailable` — термоголовка кухня Away preset temperature
+- `number.termogolovka_kukhnia_external_temperature_input` — `unavailable` — термоголовка кухня Температура
+- `select.termogolovka_kukhnia_sensor` — `unavailable` — термоголовка кухня Sensor
+- `sensor.datchik_temperaturi_kukhnia_battery` — `100` — Датчик температури Кухня Батарея
+- `sensor.datchik_temperaturi_kukhnia_humidity` — `48.3` — Датчик температури Кухня Вологість
+- `sensor.datchik_temperaturi_kukhnia_pressure` — `951.4` — Датчик температури Кухня Атмосферний тиск
+- `sensor.datchik_temperaturi_kukhnia_temperature` — `24.4` — Датчик температури Кухня Температура
+- `sensor.datchik_temperaturi_kukhnia_voltage` — `3015` — Датчик температури Кухня Напруга
+- `sensor.termogolovka_kukhnia_battery` — `unavailable` — термоголовка кухня Батарея
+- `sensor.termogolovka_kukhnia_device_temperature` — `unavailable` — термоголовка кухня Температура
+- `sensor.termogolovka_kukhnia_local_temperature` — `unavailable` — термоголовка кухня Температура
+- `sensor.termogolovka_kukhnia_voltage` — `unavailable` — термоголовка кухня Напруга
+- `switch.termogolovka_kukhnia_child_lock` — `unavailable` — термоголовка кухня Child lock
+- `switch.termogolovka_kukhnia_schedule` — `unavailable` — термоголовка кухня Schedule
+- `switch.termogolovka_kukhnia_valve_detection` — `unavailable` — термоголовка кухня Valve detection
+- `switch.termogolovka_kukhnia_window_detection` — `unavailable` — термоголовка кухня Window detection
+- `text.termogolovka_kukhnia_schedule_settings` — `unavailable` — термоголовка кухня Schedule settings
+- `update.termogolovka_kukhnia` — `unavailable` — термоголовка кухня
+
+## Коридор
+- `automation.vikliuchennia_svitla_v_koridori` — `on` — Коридор - Виключення світла
+- `automation.vkliuchennia_svitla_koridor` — `on` — Коридор - Включення світла
+- `binary_sensor.datchik_rukhu_koridor_rozmishchennia` — `unavailable` — Датчик руху коридор Розміщення
+- `binary_sensor.motion_korudor` — `off` — motion korudor Розміщення
+- `button.datchik_rukhu_koridor_identifikuvati` — `unavailable` — Датчик руху коридор Ідентифікувати
+- `light.lampa_koridor_1` — `unavailable` — Лампа коридор_1
+- `light.lampa_koridor_2` — `unavailable` — Лампа коридор_2
+- `light.svitlo_koridor` — `unavailable` — світло коридор
+- `select.lampa_koridor_1_color_power_on_behavior` — `unavailable` — Лампа коридор_1 Color power on behavior
+- `select.lampa_koridor_2_color_power_on_behavior` — `unavailable` — Лампа коридор_2 Color power on behavior
+- `select.lampa_koridor_2_power_on_behavior` — `unavailable` — Лампа коридор_2 Power-on behavior
+- `sensor.datchik_rukhu_koridor_batareia` — `unavailable` — Датчик руху коридор Батарея
+- `sensor.datchik_rukhu_koridor_battery_type` — `unavailable` — Датчик руху коридор Battery type
+- `sensor.datchik_rukhu_koridor_battery_voltage` — `unavailable` — Датчик руху коридор Battery voltage
+- `sensor.motion_korudor_battery` — `100` — motion korudor Батарея
+- `sensor.motion_korudor_device_temperature` — `28` — motion korudor Температура
+- `sensor.motion_korudor_illuminance` — `66` — motion korudor Освітленість
+- `sensor.motion_korudor_voltage` — `3005` — motion korudor Напруга
+- `switch.lampa_koridor_1_do_not_disturb` — `unavailable` — Лампа коридор_1 Do not disturb
+
+## Кімната Тіми
+- `binary_sensor.datchik_vikna_kimnata_timi_contact` — `on` — датчик вікна кімната Тіми Двері
+- `button.rozetka_timi_komp_identify` — `unknown` — розетка Тіми комп Ідентифікувати
+- `button.rozetka_timi_televizor_identify` — `unknown` — розетка Тіми телевізор Ідентифікувати
+- `climate.termoreguliator_kimnata_timi` — `off` — Терморегулятор кімната Тіми
+- `input_boolean.triger_obigrivu_timi` — `off` — Тіма – Обігрів
+- `input_boolean.triger_obigrivu_timi_2` — `on` — Trigger обігріву Тіми
+- `input_number.timi_temp_zberezhennia` — `22.0` — Тіма - температура збереження
+- `number.rozetka_timi_komp_countdown` — `0` — розетка Тіми комп Countdown
+- `number.rozetka_timi_televizor_countdown` — `0` — розетка Тіми телевізор Countdown
+- `select.rozetka_timi_komp_indicator_mode` — `off/on` — розетка Тіми комп Indicator mode
+- `select.rozetka_timi_komp_power_outage_memory` — `restore` — розетка Тіми комп Power outage memory
+- `select.rozetka_timi_komp_switch_type_button` — `unknown` — розетка Тіми комп Switch type button
+- `select.rozetka_timi_televizor_indicator_mode` — `off/on` — розетка Тіми телевізор Indicator mode
+- `select.rozetka_timi_televizor_power_outage_memory` — `restore` — розетка Тіми телевізор Power outage memory
+- `select.rozetka_timi_televizor_switch_type_button` — `unknown` — розетка Тіми телевізор Switch type button
+- `sensor.datchik_temperaturi_kimnata_timi_battery` — `100` — Датчик температури кімната Тіми Батарея
+- `sensor.datchik_temperaturi_kimnata_timi_humidity` — `51` — Датчик температури кімната Тіми Вологість
+- `sensor.datchik_temperaturi_kimnata_timi_pressure` — `951.3` — Датчик температури кімната Тіми Атмосферний тиск
+- `sensor.datchik_temperaturi_kimnata_timi_temperature` — `23.67` — Датчик температури кімната Тіми Температура
+- `sensor.datchik_temperaturi_kimnata_timi_voltage` — `3015` — Датчик температури кімната Тіми Напруга
+- `sensor.datchik_vikna_kimnata_timi_battery` — `100` — датчик вікна кімната Тіми Батарея
+- `sensor.datchik_vikna_kimnata_timi_device_temperature` — `28` — датчик вікна кімната Тіми Температура
+- `sensor.datchik_vikna_kimnata_timi_voltage` — `3035` — датчик вікна кімната Тіми Напруга
+- `sensor.rozetka_timi_komp_current` — `0` — розетка Тіми комп Струм
+- `sensor.rozetka_timi_komp_energy` — `55.91` — розетка Тіми комп Енергія
+- `sensor.rozetka_timi_komp_energy_cost` — `24.21` — sensor Cost
+- `sensor.rozetka_timi_komp_power` — `0` — розетка Тіми комп Живлення
+- `sensor.rozetka_timi_komp_voltage` — `239` — розетка Тіми комп Напруга
+- `sensor.rozetka_timi_televizor_current` — `0.21` — розетка Тіми телевізор Струм
+- `sensor.rozetka_timi_televizor_energy` — `100.43` — розетка Тіми телевізор Енергія
+- `sensor.rozetka_timi_televizor_energy_cost` — `72.3600000000001` — sensor Cost
+- `sensor.rozetka_timi_televizor_power` — `16` — розетка Тіми телевізор Живлення
+- `sensor.rozetka_timi_televizor_voltage` — `239` — розетка Тіми телевізор Напруга
+- `switch.rozetka_timi_komp` — `on` — розетка Тіми комп
+- `switch.rozetka_timi_komp_child_lock` — `off` — розетка Тіми комп Child lock
+- `switch.rozetka_timi_televizor` — `on` — розетка Тіми телевізор
+- `switch.rozetka_timi_televizor_child_lock` — `off` — розетка Тіми телевізор Child lock
+- `switch.rozetki_timi` — `on` — розетки Тіми
+- `update.rozetka_timi_komp` — `off` — розетка Тіми комп
+- `update.rozetka_timi_televizor` — `off` — розетка Тіми телевізор
+
+## Кімната Саші
+- `binary_sensor.datchik_vikno_sashi_kimnata_contact` — `off` — датчик вікно Саші кімната Двері
+- `binary_sensor.termogolovka_sashi_kimnata_calibrated` — `on` — термоголовка Саші кімната Calibrated
+- `binary_sensor.termogolovka_sashi_kimnata_setup` — `off` — термоголовка Саші кімната Виконання
+- `binary_sensor.termogolovka_sashi_kimnata_valve_alarm` — `on` — термоголовка Саші кімната Проблема
+- `binary_sensor.termogolovka_sashi_kimnata_window_open` — `off` — термоголовка Саші кімната Вікно
+- `button.rozetka_sashi_komp_identify` — `unavailable` — розетка Саші комп Ідентифікувати
+- `button.termogolovka_sashi_kimnata_calibrate` — `unknown` — термоголовка Саші кімната Calibrate
+- `climate.termogolovka_sashi_kimnata` — `off` — термоголовка Саші кімната
+- `input_boolean.triger_obigrivu_sashi` — `off` — Trigger обігріву Саші
+- `number.rozetka_sashi_komp_countdown` — `unavailable` — розетка Саші комп Countdown
+- `number.termogolovka_sashi_kimnata_away_preset_temperature` — `5.0` — термоголовка Саші кімната Away preset temperature
+- `number.termogolovka_sashi_kimnata_external_temperature_input` — `unknown` — термоголовка Саші кімната Температура
+- `select.rozetka_sashi_komp_indicator_mode` — `unavailable` — розетка Саші комп Indicator mode
+- `select.rozetka_sashi_komp_power_outage_memory` — `unavailable` — розетка Саші комп Power outage memory
+- `select.rozetka_sashi_komp_switch_type_button` — `unavailable` — розетка Саші комп Switch type button
+- `select.termogolovka_sashi_kimnata_sensor` — `internal` — термоголовка Саші кімната Sensor
+- `sensor.datchik_temperaturi_sashi_kimnati_battery` — `97` — датчик температури Саші кімнати Батарея
+- `sensor.datchik_temperaturi_sashi_kimnati_humidity` — `48.61` — датчик температури Саші кімнати Вологість
+- `sensor.datchik_temperaturi_sashi_kimnati_pressure` — `951.6` — датчик температури Саші кімнати Атмосферний тиск
+- `sensor.datchik_temperaturi_sashi_kimnati_temperature` — `24.47` — датчик температури Саші кімнати Температура
+- `sensor.datchik_temperaturi_sashi_kimnati_voltage` — `2995` — датчик температури Саші кімнати Напруга
+- `sensor.datchik_vikno_sashi_kimnata_battery` — `100` — датчик вікно Саші кімната Батарея
+- `sensor.datchik_vikno_sashi_kimnata_device_temperature` — `27` — датчик вікно Саші кімната Температура
+- `sensor.datchik_vikno_sashi_kimnata_voltage` — `3035` — датчик вікно Саші кімната Напруга
+- `sensor.rozetka_sashi_komp_current` — `unavailable` — розетка Саші комп Струм
+- `sensor.rozetka_sashi_komp_energy` — `unavailable` — розетка Саші комп Енергія
+- `sensor.rozetka_sashi_komp_energy_cost` — `unknown` — sensor Cost
+- `sensor.rozetka_sashi_komp_power` — `unavailable` — розетка Саші комп Живлення
+- `sensor.rozetka_sashi_komp_voltage` — `unavailable` — розетка Саші комп Напруга
+- `sensor.termogolovka_sashi_kimnata_battery` — `100` — термоголовка Саші кімната Батарея
+- `sensor.termogolovka_sashi_kimnata_device_temperature` — `26` — термоголовка Саші кімната Температура
+- `sensor.termogolovka_sashi_kimnata_local_temperature` — `23.4` — термоголовка Саші кімната Температура
+- `sensor.termogolovka_sashi_kimnata_voltage` — `3200` — термоголовка Саші кімната Напруга
+- `switch.rozetka_sashi_komp` — `unavailable` — розетка Саші комп
+- `switch.rozetka_sashi_komp_child_lock` — `unavailable` — розетка Саші комп Child lock
+- `switch.termogolovka_sashi_kimnata_child_lock` — `on` — термоголовка Саші кімната Child lock
+- `switch.termogolovka_sashi_kimnata_schedule` — `off` — термоголовка Саші кімната Schedule
+- `switch.termogolovka_sashi_kimnata_valve_detection` — `on` — термоголовка Саші кімната Valve detection
+- `switch.termogolovka_sashi_kimnata_window_detection` — `on` — термоголовка Саші кімната Window detection
+- `text.termogolovka_sashi_kimnata_schedule_settings` — `mon,sun|0:00,21.0|12:00,17.0|18:00,21.0|23:59,21.0` — термоголовка Саші кімната Schedule settings
+- `update.rozetka_sashi_komp` — `unavailable` — розетка Саші комп
+- `update.termogolovka_sashi_kimnata` — `off` — термоголовка Саші кімната
+
+## Рослини
+- `automation.poliv_roslini_1` — `on` — 🚨 Полив рослини 1
+- `automation.poliv_roslini_2` — `on` — 🚨 Полив рослини 2
+- `automation.poliv_roslini_3` — `on` — 🚨 Полив рослини 3
+- `automation.poliv_roslini_4` — `on` — 🚨 Полив рослини 4
+- `binary_sensor.datchik_roslin_1_dry` — `off` — датчик рослин_1 Dry
+- `binary_sensor.datchik_roslin_2_dry` — `off` — датчик рослин_2 Dry
+- `binary_sensor.roslina_3_dry` — `off` — рослина_3 Dry
+- `binary_sensor.roslina_4_dry` — `off` — рослина_4 Dry
+- `number.datchik_roslin_1_humidity_calibration` — `0` — датчик рослин_1 Humidity calibration
+- `number.datchik_roslin_1_soil_calibration` — `0` — датчик рослин_1 Soil calibration
+- `number.datchik_roslin_1_soil_sampling` — `30` — датчик рослин_1 Soil sampling
+- `number.datchik_roslin_1_soil_warning` — `20` — датчик рослин_1 Soil warning
+- `number.datchik_roslin_1_temperature_calibration` — `0` — датчик рослин_1 Temperature calibration
+- `number.datchik_roslin_1_temperature_sampling` — `30` — датчик рослин_1 Temperature sampling
+- `number.datchik_roslin_2_humidity_calibration` — `0` — датчик рослин_2 Humidity calibration
+- `number.datchik_roslin_2_soil_calibration` — `0` — датчик рослин_2 Soil calibration
+- `number.datchik_roslin_2_soil_sampling` — `30` — датчик рослин_2 Soil sampling
+- `number.datchik_roslin_2_soil_warning` — `20` — датчик рослин_2 Soil warning
+- `number.datchik_roslin_2_temperature_calibration` — `0` — датчик рослин_2 Temperature calibration
+- `number.datchik_roslin_2_temperature_sampling` — `30` — датчик рослин_2 Temperature sampling
+- `number.roslina_3_humidity_calibration` — `0` — рослина_3 Humidity calibration
+- `number.roslina_3_soil_calibration` — `0` — рослина_3 Soil calibration
+- `number.roslina_3_soil_sampling` — `30` — рослина_3 Soil sampling
+- `number.roslina_3_soil_warning` — `45` — рослина_3 Soil warning
+- `number.roslina_3_temperature_calibration` — `0` — рослина_3 Temperature calibration
+- `number.roslina_3_temperature_sampling` — `30` — рослина_3 Temperature sampling
+- `number.roslina_4_humidity_calibration` — `0` — рослина_4 Humidity calibration
+- `number.roslina_4_soil_calibration` — `0` — рослина_4 Soil calibration
+- `number.roslina_4_soil_sampling` — `30` — рослина_4 Soil sampling
+- `number.roslina_4_soil_warning` — `20` — рослина_4 Soil warning
+- `number.roslina_4_temperature_calibration` — `0` — рослина_4 Temperature calibration
+- `number.roslina_4_temperature_sampling` — `30` — рослина_4 Temperature sampling
+- `select.datchik_roslin_1_temperature_unit` — `celsius` — датчик рослин_1 Temperature unit
+- `select.datchik_roslin_2_temperature_unit` — `celsius` — датчик рослин_2 Temperature unit
+- `select.roslina_3_temperature_unit` — `celsius` — рослина_3 Temperature unit
+- `select.roslina_4_temperature_unit` — `celsius` — рослина_4 Temperature unit
+- `sensor.datchik_roslin_1_battery` — `100` — датчик рослин_1 Батарея
+- `sensor.datchik_roslin_1_humidity` — `64` — датчик рослин_1 Вологість
+- `sensor.datchik_roslin_1_soil_moisture` — `74` — датчик рослин_1 Вологість
+- `sensor.datchik_roslin_1_temperature` — `23.9` — датчик рослин_1 Температура
+- `sensor.datchik_roslin_2_battery` — `100` — датчик рослин_2 Батарея
+- `sensor.datchik_roslin_2_humidity` — `67` — датчик рослин_2 Вологість
+- `sensor.datchik_roslin_2_soil_moisture` — `65` — датчик рослин_2 Вологість
+- `sensor.datchik_roslin_2_temperature` — `24.1` — датчик рослин_2 Температура
+- `sensor.roslina_3_battery` — `100` — рослина_3 Батарея
+- `sensor.roslina_3_humidity` — `78` — рослина_3 Вологість
+- `sensor.roslina_3_soil_moisture` — `49` — рослина_3 Вологість
+- `sensor.roslina_3_temperature` — `23.8` — рослина_3 Температура
+- `sensor.roslina_4_battery` — `100` — рослина_4 Батарея
+- `sensor.roslina_4_humidity` — `58` — рослина_4 Вологість
+- `sensor.roslina_4_soil_moisture` — `50` — рослина_4 Вологість
+- `sensor.roslina_4_temperature` — `24` — рослина_4 Температура

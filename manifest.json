@@ -66,6 +66,31 @@
         "hermes новини",
         "моніторинг reddit"
       ]
+    },
+    {
+      "name": "home-assistant",
+      "description": "Control Home Assistant smart home — lights, media, radio, TTS, automations, scenes. Supports kitchen, bedroom, bathroom devices.",
+      "version": "1.1.0",
+      "author": "Max",
+      "path": "plugins/home-assistant/SKILL.md",
+      "category": "smart-home",
+      "triggers": [
+        "home assistant",
+        "ha",
+        "світло",
+        "музика",
+        "колонка",
+        "розетка",
+        "кухня",
+        "спальня",
+        "радіо",
+        "включи",
+        "вимкни",
+        "вологість",
+        "температура",
+        "автоматизація",
+        "сцена"
+      ]
     }
   ]
 }
